@@ -1,0 +1,32 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- Collections -->
+	<bean id="st" class="com.org.srm.ioc.Student" scope="singleton"
+		init-method="init" destroy-method="destroy">
+
+		<!--DI -->
+		<constructor-arg index="0" value="stella"></constructor-arg>
+		<constructor-arg index="1" value="campus"></constructor-arg>
+		<property name="stuname" value="latha"></property>
+		<property name="hpay" ref="paydetails" />
+
+	</bean>
+	<!-- SCOPE -->
+	<bean id="paydetails" class="com.org.srm.ioc.HostelPay"
+		scope="singleton">
+		<property name="status" value="Payment Done" />
+		<property name="lstatus">
+			<list>
+				<value>With AC</value>
+				<value>Parking available</value>
+				<value>No Mess</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>
