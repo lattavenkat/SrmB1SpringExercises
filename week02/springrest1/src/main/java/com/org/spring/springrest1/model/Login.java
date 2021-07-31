@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -24,8 +25,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "Login")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, 
-        allowGetters = true)
+@JsonIgnoreProperties(value = { "createdAt", "updatedAt" }, allowGetters = true)
 public class Login implements Serializable {
 
     @Id
@@ -34,12 +34,27 @@ public class Login implements Serializable {
 
     @Column(name = "name")
     @NotEmpty(message = "Please provide a name")
-    @Size(min=5, message="Name should have atleast 5 characters")
+    @Size(min = 5, message = "Name should have atleast 5 characters")
     private String name;
 
     @Column(name = "email")
-    private String email; 
+    private String email;
 
+
+    // transient
+    @Transient
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    // temporal
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
